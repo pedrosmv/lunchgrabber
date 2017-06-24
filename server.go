@@ -10,6 +10,7 @@ import (
 
 	goji "goji.io"
 
+	"github.com/rs/cors"
 	mgo "gopkg.in/mgo.v2"
 )
 
@@ -47,8 +48,10 @@ func main() {
 
 	multiplex := goji.NewMux()
 	multiplex.HandleFunc(pat.Post("/locations"), handlers.CreateWrapper(session))
+	multiplex.HandleFunc(pat.Get("/locations/:city"), handlers.FetchAll(session))
 	multiplex.HandleFunc(pat.Get("/locations/:id"), handlers.ReadWrapper(session))
 	multiplex.HandleFunc(pat.Put("/locations/:id"), handlers.UpdateWrapper(session))
 	multiplex.HandleFunc(pat.Delete("/locations/:id"), handlers.DeleteWrapper(session))
-	http.ListenAndServe("localhost:8080", multiplex)
+	handler := cors.Default().Handler(multiplex)
+	http.ListenAndServe("localhost:8080", handler)
 }
