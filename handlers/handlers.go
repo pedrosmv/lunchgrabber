@@ -114,6 +114,7 @@ func DeleteWrapper(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
+/*FetchAll is responsible for searching the database for locations of a given city */
 func FetchAll(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session := s.Copy()
