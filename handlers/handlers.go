@@ -33,6 +33,7 @@ func CreateWrapper(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) 
 		context := session.DB("store").C("locations")
 
 		err = context.Insert(location)
+		fmt.Println(location)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -110,5 +111,30 @@ func DeleteWrapper(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) 
 			fmt.Println(err)
 		}
 		w.WriteHeader(http.StatusNoContent)
+	}
+}
+
+/*FetchAll is responsible for searching the database for locations of a given city */
+func FetchAll(s *mgo.Session) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		session := s.Copy()
+		defer session.Close()
+
+		city := pat.Param(r, "city")
+
+		context := session.DB("store").C("locations")
+
+		location := []location.Location{}
+
+		err := context.Find(bson.M{"city": city}).All(&location)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(location)
+		response, err := json.MarshalIndent(location, "", "  ")
+		if err != nil {
+			fmt.Println(err)
+		}
+		w.Write(response)
 	}
 }
