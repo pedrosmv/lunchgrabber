@@ -39,3 +39,13 @@ After it finishes installing, run:
 ```
 npm start
 ```
+
+## When at the Page
+
+The Lunch Grabber is a collaborative website where you can add Locations where you like to eat and also check for suggestions from other users.
+
+### Add a new Location
+To add a new location simply go to the Add a Location page, fill the form and submit.
+
+### Get Suggestions
+To see the site's suggestions for your city go to the Get Suggestion page and enter your city name and click on the Get Suggestions button. 
