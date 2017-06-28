@@ -1,7 +1,7 @@
 {
-    "id":"20",
-    "city":"ribeirao",
-    "country":"brasil",
-    "street":"bla",
+    "name":"Burger King",
+    "city":"Campinas",
+    "country":"Brasil",
+    "street":"Avenida Anchieta",
     "number":"100"
 }
